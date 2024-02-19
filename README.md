@@ -10,7 +10,7 @@ https://openjdk.org/jeps/122
 
 The Permanent Generation was a distinct section of the Java Heap (the memory where objects are stored) in older Java versions (prior to Java 8).
 
-Specifically, PermGen stored **Java class metadata**:
+Specifically,**PermGen stored Java class metadata**:
 
 - Class definitions (names, methods, fields, etc.)
 
