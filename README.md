@@ -1,6 +1,6 @@
 # Java 8 new features samples
 
-Java 8 language specification: https://docs.oracle.com/javase/specs/jls/se8/html/index.html
+**Java 8** language specification: https://docs.oracle.com/javase/specs/jls/se8/html/index.html
 
 ## 1. Remove Permanent Generation (JEP 122)
 
