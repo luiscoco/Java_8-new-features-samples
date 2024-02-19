@@ -448,6 +448,69 @@ This concept, along with **lambdas**, contributes to  Java's move toward better 
 
 https://openjdk.org/jeps/104
 
+Let's delve into Java Type Use Annotations, introduced under JEP 104
+
+**The Problem: Limited Expressiveness & Type Safety**
+
+Before JEP 104, Java annotations could be applied primarily to declarations (methods, classes, fields, etc.)
+
+This left gaps when expressing desired properties or expected uses of types within code
+
+**What are Type Use Annotations?**
+
+**Expansion of Annotations**: They extend the usage of annotations to the places where types  themselves appear:
+
+- Class instance creation (new ArrayList<>())
+
+- Casts ((String) obj)
+
+- implements clauses
+
+- throws clauses
+
+**New Annotation Targets**:  JEP 104 defines ElementType.TYPE_USE and ElementType.TYPE_PARAMETER to support these new annotation locations
+
+**Why This Matters**
+
+**Improved Type Checking**:   Type use annotations let specialized external tools (like pluggable type checkers) perform finer-grained analysis of the code:
+
+**Nullness**: Ensure variables shouldn't hold null values (@NonNull String name;)
+
+**Mutability**: Indicate an object is guaranteed to be immutable (List<@Immutable String> data;)
+
+**Framework Specific**: Help libraries enforce API usage correctness
+
+**Self-Documenting Code**:  Even without external tools, these annotations enhance the readability of code by making  developer intent more explicit
+
+**Example:[@NonNull]**
+
+```java
+// Assume @NonNull is defined with ElementType.TYPE_USE
+public String formatData(@NonNull Person person) {
+    if (person == null) { // Avoid mistakes (tools might even warn here)
+        throw new IllegalArgumentException("Person cannot be null");
+    }
+    return person.getName() + " - " + person.getAddress(); 
+    // Compiler/analysis tools could now rely on  person.getName() not returning null  
+}
+```
+
+**Key Points**
+
+**Tools are Crucial**: The JDK by itself does little with these annotations. It's external checkers and analysis frameworks that provide much of the power. Popular examples include the Checker Framework and IntelliJ's nullability inspections
+
+**Design Your Own**: You can create custom type use annotations if you find recurring design patterns in your codebase that you want to enforce via analysis
+
+**JEP 104's Significance**
+
+While the impact on standard Java APIs was gradual, JEP 104 laid the groundwork for:
+
+**More expressive and self-documenting code**
+
+Stronger type safety mechanisms leveraging tools outside the compiler itself
+
+Potential for more sophisticated code analysis to catch subtle runtime errors earlier
+
 ## 6. Repeating Annotations (JEP 120)
 
 https://openjdk.org/jeps/120
