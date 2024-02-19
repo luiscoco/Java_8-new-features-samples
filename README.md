@@ -577,6 +577,80 @@ public <T extends @NonNull Object> void  doSomething(T value) {
 
 https://openjdk.org/jeps/120
 
+Let's break down Java Repeating Annotations, a useful feature introduced in Java 8 through JEP 120
+
+**The Problem: Verbose Repetition**
+
+**Before Java 8**, if you wanted to apply the same annotation to an element multiple times, you had to wrap it in another annotation to create a container to hold them
+
+This led to unnecessary boilerplate code
+
+**Example (Pre-JEP 120)**
+
+```java
+@interface Schedules { 
+    Schedule[] value(); // Container annotation to hold repetitions
+}
+
+@Schedules({
+    @Schedule(day = "Monday"),
+    @Schedule(day = "Friday")
+})
+public void scheduledTask() { 
+    // Task executed on Monday and Friday
+}
+```
+
+**Repeating Annotations**
+
+**Simplification**: With **JEP 120**, you can directly repeat the same annotation without awkward containers.
+
+Here's the cleaner approach:
+
+```java
+@Schedule(day = "Monday")
+@Schedule(day = "Friday")
+public void scheduledTask() { } 
+```
+
+**Meta-Annotation @Repeatable**:  To declare an annotation as repeatable, you mark it with the **@Repeatable** meta-annotation:
+
+```Java
+import java.lang.annotation.Repeatable; 
+
+@Repeatable(Schedules.class) // Specify the container annotation (see below)
+@interface Schedule { 
+    String day();
+} 
+
+// Invisible Container is magically created
+@interface Schedules {
+    Schedule[] value();
+}
+```
+
+**Behind the Scenes**
+
+**Compiler Generated Container**: When the compiler sees repeating annotations, it implicitly creates a containing annotation of the type specified in the @Repeatable declaration
+
+**Accessing Repeated Values**: When you use reflection on the element where the annotations are used, you'll get the container annotation holding the individual values (Schedules in our example)
+
+**Why This Matters**
+
+**Readability**: The reduction in verbosity significantly improves code readability when you apply the same annotation with slightly different attributes multiple times
+
+**Framework Flexibility**: Many libraries use repeating annotations to define configurations more expressively
+
+**JEP 120's Influence**
+
+Repeatable annotations offer a seemingly small, but crucial quality-of-life improvement for Java developers and API designers.
+
+**Examples from Java**
+
+**@SuppressWarnings**: Suppress multiple warning types (@SuppressWarnings({ "unchecked", "rawtypes" }) )
+
+**Testing Libraries**: Frameworks like **JUnit 5** use repeatable annotations for custom test setups
+
 ## 7. Streams (java.util.stream) (JEP 107)
 
 https://openjdk.org/jeps/107
