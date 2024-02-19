@@ -30,4 +30,6 @@ https://openjdk.org/jeps/107
 
 https://openjdk.org/jeps/109
 
-## 9. Date Time (java.time) (JSR 310, JEP 150): https://jcp.org/en/jsr/detail?id=310, https://openjdk.org/jeps/150
+## 9. Date Time (java.time) (JSR 310, JEP 150)
+
+https://jcp.org/en/jsr/detail?id=310, https://openjdk.org/jeps/150
