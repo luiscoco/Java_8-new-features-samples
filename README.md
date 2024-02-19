@@ -511,6 +511,68 @@ Stronger type safety mechanisms leveraging tools outside the compiler itself
 
 Potential for more sophisticated code analysis to catch subtle runtime errors earlier
 
+**SAMPLES** to illustrate how you can utilize **Java Type Use Annotations**
+
+For these examples, we'll assume you have a tool like the Checker Framework to process and understand those annotations
+
+**Notations**
+
+Since there aren't standardized annotations built into Java, we'll use these hypothetical ones:
+
+**@NonNull**: Indicates a variable or type mustn't hold a null value
+
+**@ReadOnly**: Specifies that a collection or object won't be mutated through that reference
+
+**Example 1: Variable Declaration**
+
+```java
+public void processName(@NonNull String name) {
+   // Safe to do since name is guaranteed not null:
+   String upperName = name.toUpperCase();  
+}
+```
+
+**Benefit**: Type-checkers could warn if this method is called with a possibly null value
+
+**Example 2: Collections**
+
+```java
+List<@ReadOnly String> cityList = getCities();  
+cityList.add("New York"); // Type-checker would flag an error
+
+Collection<@NonNull String> safeAddresses = getAddressList(); 
+String first = safeAddresses.iterator().next(); // No null check needed 
+```
+
+**Benefit**: The annotations clarify and help enforce intent. Tools can help prevent accidental modification on the cityList and reduce checks with safeAddresses
+
+**Example 3: Casts**
+
+```java
+Object obj = ...;
+@NonNull String message = (@NonNull String) obj;  // Ensures obj is not null
+```
+
+**Benefit**: Explicit cast type ensures the type checker knows this cast should be considered "safe" if obj truly cannot be null
+
+**Example 4: Generic Type Bounds**
+
+```java
+public <T extends @NonNull Object> void  doSomething(T value) { 
+    // T guaranteed not null
+}
+```
+
+**Benefit**: The bounded type parameter makes the guarantee on T explicit for users of this method
+
+**Important Things to Consider**
+
+**Tools**: These examples become truly powerful when supported by the Checker Framework (https://checkerframework.org/) or similar analysis tools
+
+**Standard Libraries**: While Java itself didn't immediately ship a standardized set of type-use annotations, various libraries and projects incorporate this approach
+
+**Community Consensus**: It takes time for a wider consensus to grow around a core set of frequently used type use annotations
+
 ## 6. Repeating Annotations (JEP 120)
 
 https://openjdk.org/jeps/120
