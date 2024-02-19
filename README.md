@@ -60,6 +60,81 @@ Introduced as part of Java 8
 
 https://jcp.org/en/jsr/detail?id=335
 
+**What are Lambda Expressions?**
+
+**Concise Anonymous Functions**: Lambdas provide a compact syntax for implementing simple functions directly where they are needed
+
+They streamline scenarios where you traditionally used anonymous inner classes
+
+**Functional Programming Touch**: Lambdas make it easier to treat functions as values in Java, encouraging a functional programming style (often used with the Streams API)
+
+**Syntax Basics**
+
+A lambda expression has three parts:
+
+**Parameter List**: Comma-separated variables within parentheses
+
+**(param1, param2)** -> ... 
+
+**Arrow**: The **->** symbol separates the parameters from the function body
+
+**Body**:
+
+**Single Expression**: Its value is implicitly returned
+
+(x, y) -> x + y 
+
+**Code Block**: Use curly braces for multiple statements. Requires an explicit return statement
+
+() -> { System.out.println("Hello"); return 42; } 
+
+**Why Use Lambda Expressions**
+
+**Readability**: They reduce verbosity in the code. Compare creating a named Runnable for a thread vs. a lambda:
+
+```java
+// Traditional Runnable
+new Thread(new Runnable() {
+    @Override
+    public void run() {
+        System.out.println("In a thread");
+    }
+}).start();
+
+// With a lambda
+new Thread(() -> System.out.println("In a thread")).start();  
+```
+
+Passing Code as Data: Lambdas work effortlessly with methods of functional interfaces (interfaces with a single abstract method). This enables elegant techniques like filtering collections
+
+**Streamlined APIs**: Java 8's Streams API  heavily leans on lambdas for operations like filtering, mapping, and sorting collections
+
+**Example with Streams**
+
+```java
+import java.util.Arrays;
+import java.util.List;
+
+List<Integer> numbers = Arrays.asList(1, 5, 2, 8, 3);
+
+numbers.stream()
+       .filter(n -> n % 2 == 0) // Filter even numbers
+       .map(n -> n * 2)         // Double each number 
+       .forEach(System.out::println);   // Print results  
+```
+
+**Key Notes**
+
+**Type Inference**: The compiler can often infer the data types of a lambda's parameters, but you can specify them if needed
+
+**Capturing Variables**: Lambdas can access variables from the enclosing scope as long as they are effectively final (their value isn't modified)
+
+**JSR 335's Impact**. JSR 335  was a significant addition to Java 8
+
+Lambda expressions, along with  other new features like the Streams API, enhanced Java's ability to use concise and expressive code  aligned with functional programming paradigms
+
+
+
 ## 3. Default Methods in Interfaces (JSR 335)
 
 ## 4. Effectively Final Variables (JSR 335)
