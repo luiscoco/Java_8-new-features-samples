@@ -133,7 +133,82 @@ numbers.stream()
 
 Lambda expressions, along with  other new features like the Streams API, enhanced Java's ability to use concise and expressive code  aligned with functional programming paradigms
 
+Let's explore some more advanced uses of Java Lambda Expressions.
 
+1. Custom Functional Interfaces & Comparators
+
+Beyond Predefined: While lambda expressions work seamlessly with predefined functional interfaces (Predicate, Function, Consumer, etc.), you can create your own.
+Java
+// Functional interface for checking string validity
+@FunctionalInterface
+interface StringChecker {
+    boolean isValid(String s);
+}
+
+public class LambdaAdvanced {
+    public static void main(String[] args) {
+        StringChecker isEmpty = s -> s.isEmpty();
+        System.out.println(isEmpty.isValid(""));     // true
+        System.out.println(isEmpty.isValid("hello")); // false
+
+        // Comparator comparing lengths
+        Comparator<String> lengthComparator = (s1, s2) -> Integer.compare(s1.length(), s2.length());
+    }
+}
+Usa el código con precaución.
+2. Method References
+
+Shorthand for Existing Methods: When a lambda simply calls an existing method, you can replace it with a method reference for further brevity.
+Java
+List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+
+// Lambda way
+names.forEach(name -> System.out.println(name));
+
+// Method reference - more concise
+names.forEach(System.out::println); 
+Usa el código con precaución.
+Types:
+objectName::instanceMethod
+ClassName::staticMethod
+ClassName::new (constructor reference)
+3. Lambdas Within Collections
+
+Sorting: Comparator.comparing gives a nice way to use lambdas within sort methods of collections:
+Java
+List<Person> people = ... // Assume a list of Person objects
+
+people.sort(Comparator.comparing(Person::getName));       // Sort by name
+people.sort(Comparator.comparing(Person::getAge).reversed());  // Sort by age descending
+Usa el código con precaución.
+Advanced Stream Usage: Combining operations like filter, map, and reduce with lambdas leads to powerful data manipulation capabilities within Streams.
+4. Event Handling (Swing/JavaFX)
+
+Callback Handlers: Lambda expressions eliminate the tedium of creating separate classes to handle GUI events:
+Java
+import javax.swing.*;
+
+JButton button = new JButton("Click Me");
+button.addActionListener(e -> System.out.println("Button clicked!"));
+Usa el código con precaución.
+5. Higher-Order Functions
+
+Functions as Arguments/Return Values: You can write methods that accept lambda expressions as parameters or return them, enabling the creation of flexible, reusable algorithms.
+Java
+public static <T> List<T> filter(List<T> list, Predicate<T> condition) {
+    List<T> result = new ArrayList<>();
+    for (T item : list) {
+        if (condition.test(item)) {
+            result.add(item);
+        }
+    }
+    return result;
+}
+Usa el código con precaución.
+Notes
+
+Performance: Using lambdas strategically generally doesn't incur performance overhead compared to traditional code.
+Debugging: Sometimes complex lambdas in deep function chains can make debugging a bit less intuitive; strategic naming or refactoring can help here.
 
 ## 3. Default Methods in Interfaces (JSR 335)
 
