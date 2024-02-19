@@ -348,15 +348,15 @@ List<Integer> numbers = Arrays.asList(1, 2, 3);
 numbers.forEach(num -> System.out.println(num)); 
 ```
 
-**List.sort(Comparator)**:  Enables custom sorting using comparators built with lambdas.
+**List.sort(Comparator)**:  Enables custom sorting using comparators built with lambdas
 
-3. Design Patterns with Default Methods
+### 3.3. Design Patterns with Default Methods
 
-Adapter Pattern: Default methods streamline creating adapters. Instead of every "adaptee" needing to implement all interface methods, a default version could suffice.
+**Adapter Pattern**: Default methods streamline creating adapters. Instead of every "adaptee" needing to implement all interface methods, a default version could suffice
 
-Optional Behavior: Provide optional extensions as default methods in an interface, giving finer control to client code on what to incorporate.
+**Optional Behavior**: Provide optional extensions as default methods in an interface, giving finer control to client code on what to incorporate
 
-4. Practical Scenario: Version Upgrading
+### 3.4. Practical Scenario: Version Upgrading
 
 **Imagine a payment system**:
 
@@ -384,7 +384,6 @@ Clients needing the enhanced features can selectively call these new methods if 
 **Overriding Defaults**: Default methods can break existing complex setups if a class in the chain decides to override a method that used to be the inherited default. Good API design anticipates this
 
 **Diamonds**: Complex hierarchies where a class inherits the same default method through multiple paths often cause the compiler to necessitate an override to disambiguate
-
 
 ## 4. Effectively Final Variables (JSR 335)
 
