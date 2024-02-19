@@ -387,6 +387,63 @@ Clients needing the enhanced features can selectively call these new methods if 
 
 ## 4. Effectively Final Variables (JSR 335)
 
+Let's break down the concept of effectively final variables, which plays a significant role when working with lambda expressions in Java
+
+**Background: Variable Capture in Lambdas**
+
+Before Java 8, an anonymous inner class could only access variable values from its enclosing scope if those variables were declared final. Java 8 introduced lambda expressions, offering a more concise syntax for similar functionality. However, to ensure consistency and predictability, this rule was adjusted into the concept of "effectively final"
+
+**What is "Effectively Final"?**
+
+Definition: A variable or object reference is considered effectively **final** if, after initial assignment, its **value does not change**. This includes:
+
+- Variables directly declared as final
+
+- Variables that are never reassigned after initialization
+
+**Why Does This Matter for Lambdas?**
+
+**Access from Different Scopes**: Lambda expressions often live beyond the scope where they are initially defined. For example, a lambda passed into a thread executes on a different thread or at a much later time
+
+**Predictability**: The compiler and the JVM assume that any external variables a lambda captures won't change during its lifecycle. Ensuring these variables are effectively final prevents unexpected, hard-to-debug errors if these assumptions are violated
+
+```java
+String message = "Hello";
+
+Runnable task = () -> System.out.println(message); 
+
+// Some time later...
+message = "World";  // Not allowed: message must be effectively final
+
+new Thread(task).start(); 
+```
+
+**Problem**: Attempting to change the value of message later would make it not effectively final, generating a compiler error when you try to use it inside the lambda
+
+**What the Compiler Might do (Simplified)**
+
+The compiler could optimize the above code as if you had done this:
+
+```java
+String message = "Hello";
+
+final String messageCopy = message; // Internally the compiler uses a constant variable
+
+Runnable task = () -> System.out.println(messageCopy); // message doesn't change
+```
+
+**Key Points**
+
+**Object Properties**: If you capture an object, that object itself is effectively final (its reference can't change). However, its internal fields or properties can be modified even within the lambda
+
+**No Keyword Needed**: "Effectively final" is a compiler rule, not a keyword you use while coding
+
+**Error Messages**: Compiler errors often specifically state "local variable ... must be final or effectively final"
+
+**JSR 335 & Lambdas**
+
+This concept, along with **lambdas**, contributes to  Java's move toward better support for **functional programming** styles by guaranteeing safe, predictable data sharing between nested code blocks
+
 ## 5. Type Use Annotations (JEP 104)
 
 https://openjdk.org/jeps/104
