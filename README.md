@@ -699,23 +699,23 @@ public class StreamExample {
 
 **Key Components**
 
-Source: Where the stream gets its data (e.g., numbers.stream())
+**Source**: Where the stream gets its data (e.g., numbers.stream())
 
-Intermediate Operations: Transformations on the data:
+**Intermediate Operations**: Transformations on the data:
 
-filter: Keeps elements matching a condition
+**filter**: Keeps elements matching a condition
 
-map: Transforms each element into something else
+**map**: Transforms each element into something else
 
-sorted: Sorts the stream
+**sorted**: Sorts the stream
 
-Terminal Operation: Triggers the stream processing by producing a result:
+**Terminal Operation**: Triggers the stream processing by producing a result:
 
-reduce: Combines elements of the stream (example: sum, maximum, etc.)
+**reduce**: Combines elements of the stream (example: sum, maximum, etc.)
 
-forEach: Performs an action on each element
+**forEach**: Performs an action on each element
 
-collect: Collects elements into a container like a list
+**collect**: Collects elements into a container like a list
 
 Let's consider a **more advance sample** to illustrate the power of Java Streams:
 
@@ -769,30 +769,31 @@ public class TextAnalysis {
 }
 ```
 
-Explanation
+**Explanation**
 
-Flattening and Tokenizing: flatMap transforms the stream of lines into a stream of individual words.
+**Flattening and Tokenizing**: flatMap transforms the stream of lines into a stream of individual words
 
-Filtering Stop Words: filter eliminates common words.
+**Filtering Stop Words**: filter eliminates common words
 
-Word Counting: collect with groupingBy and counting creates a map with word frequencies.
+**Word Counting**: collect with groupingBy and counting creates a map with word frequencies
 
-Sorting and Top 10: The resulting stream of map entries is sorted in reverse order based on word count, limited to the top 10, and finally printed.
+**Sorting and Top 10**: The resulting stream of map entries is sorted in reverse order based on word count, limited to the top 10, and finally printed
 
-Sentiment Analysis: An average sentiment score across all reviews is calculated.
+**Sentiment Analysis**: An average sentiment score across all reviews is calculated
 
-Key Points
+**Key Points**
 
-Stream Chaining: Multiple stream operations link together, expressing the analysis compactly
+**Stream Chaining**: Multiple stream operations link together, expressing the analysis compactly
 
-Collectors: groupingBy and counting are handy collectors for aggregation
+**Collectors**: groupingBy and counting are handy collectors for aggregation
 
-Custom Functions: The calculateSentiment function (even though stubbed out here) illustrates integration of external logic
-
+**Custom Functions**: The calculateSentiment function (even though stubbed out here) illustrates integration of external logic
 
 ## 8. Lambda APIs (java.util.function) (JEP 109)
 
 https://openjdk.org/jeps/109
+
+
 
 ## 9. Date Time (java.time) (JSR 310, JEP 150)
 
