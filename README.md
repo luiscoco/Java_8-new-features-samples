@@ -655,6 +655,55 @@ Repeatable annotations offer a seemingly small, but crucial quality-of-life impr
 
 https://openjdk.org/jeps/107
 
+What are Streams?
+
+Sequences of Elements: Streams in Java 8 are sequences of elements taken from a data source (like a collection, array, or I/O resource). You don't directly store data in a stream.
+Focus on 'What' Not 'How': Streams emphasize what you want to do with the data rather than the exact steps involved in manipulating the data. This leads to a declarative style of programming.
+Internal Iteration: Unlike traditional loops where you explicitly iterate over data, streams handle the iteration internally for you.
+Why Use Streams?
+
+Concise and Readable Code: Streams enable creating elegant pipelines of operations, making your code less verbose and easier to understand.
+Filtering, Mapping, and More: Streams provide higher-order functions like filter, map, sorted, and others that transform data without complex loops.
+Potential for Parallelism: The parallelStream() method effortlessly unlocks parallel processing to take advantage of multi-core systems.
+Laziness: Streams generally process data lazily, meaning computations are only executed as needed, potentially improving performance.
+JEP 107
+
+Java Enhancement Proposal 107 officially brought the idea of bulk data operations (inspired by concepts like filter/map/reduce) into the Java Collections Framework,  leading to the introduction of Streams.
+
+Basic Example
+
+Suppose you have a list of numbers and want to double the even numbers and then find their sum:
+
+Java
+import java.util.Arrays;
+import java.util.List;
+
+public class StreamExample {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+
+        int result = numbers.stream()       // Create a stream
+                            .filter(n -> n % 2 == 0) // Filter even numbers
+                            .map(n -> n * 2)        // Double the numbers
+                            .reduce(0, Integer::sum); // Sum them up
+
+        System.out.println(result);  // Output: 12
+    }
+}
+Usa el código con precaución.
+Key Components
+
+Source: Where the stream gets its data (e.g., numbers.stream())
+Intermediate Operations: Transformations on the data:
+filter: Keeps elements matching a condition.
+map: Transforms each element into something else.
+sorted: Sorts the stream.
+Terminal Operation: Triggers the stream processing by producing a result:
+reduce: Combines elements of the stream (example: sum, maximum, etc.)
+forEach: Performs an action on each element.
+collect: Collects elements into a container like a list.
+
+
 ## 8. Lambda APIs (java.util.function) (JEP 109)
 
 https://openjdk.org/jeps/109
