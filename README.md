@@ -793,36 +793,43 @@ public class TextAnalysis {
 
 https://openjdk.org/jeps/109
 
+**What are Lambda Expressions?**
 
-Absolutely! Let's explore Lambda APIs in Java 8 (JEP 109):
+**Concise Functions**: Lambda expressions provide a compact and elegant way to define small, anonymous functions. These functions are not tied to a specific class or method name
 
-What are Lambda Expressions?
+**Behavior as Data**:  Lambdas promote the idea of passing behavior as arguments to methods, enabling better code reusability and functional-style patterns
 
-Concise Functions: Lambda expressions provide a compact and elegant way to define small, anonymous functions. These functions are not tied to a specific class or method name.
+The '**->**' Syntax: A lambda expression typically looks like this:
 
-Behavior as Data:  Lambdas promote the idea of passing behavior as arguments to methods, enabling better code reusability and functional-style patterns.
-
-The '->' Syntax: A lambda expression typically looks like this:
-
-Java
+```java
 (parameters) -> { body }
-Usa el código con precaución.
-(parameters): A comma-separated list of parameters (just like a method).
-->: The lambda operator (an arrow).
-{ body }: The code to be executed, can be a single expression or a block of statements.
-Functional Interfaces (java.util.function)
+```
 
-Interfaces with a Single Abstract Method (SAM): Functional interfaces are special interfaces declaring only one abstract method. They are the targets for lambda expressions.
-Common Functional Interfaces: Java 8's java.util.function package includes many useful functional interfaces:
-Predicate<T>: Takes one argument (type T) and returns a boolean (used for filtering)
-Consumer<T>: Takes one argument (type T) and doesn't return anything (used for performing actions)
-Function<T, R>: Takes one argument (type T) and returns a value (type R) (used for transformations)
-Supplier<T>: Doesn't take any arguments, but returns a value (type T) (used as a source of values)
-Example
+**(parameters)**: A comma-separated list of parameters (just like a method)
 
-Old way (without lambdas):
+**->**: The lambda operator (an arrow)
 
-Java
+**{ body }**: The code to be executed, can be a single expression or a block of statements
+
+**Functional Interfaces (java.util.function)**
+
+**Interfaces with a Single Abstract Method (SAM)**: Functional interfaces are special interfaces declaring only one abstract method. They are the targets for lambda expressions.
+
+**Common Functional Interfaces**: Java 8's java.util.function package includes many useful functional interfaces:
+
+**Predicate<T>**: Takes one argument (type T) and returns a boolean (used for filtering)
+
+**Consumer<T>**: Takes one argument (type T) and doesn't return anything (used for performing actions)
+
+**Function<T, R>**: Takes one argument (type T) and returns a value (type R) (used for transformations)
+
+**Supplier<T>**: Doesn't take any arguments, but returns a value (type T) (used as a source of values)
+
+**Example**
+
+**Old way (without lambdas):**
+
+```java
 Comparator<String> lengthComparator = new Comparator<String>() {
     @Override
     public int compare(String s1, String s2) {
@@ -830,21 +837,29 @@ Comparator<String> lengthComparator = new Comparator<String>() {
     }
 };
 Arrays.sort(strings, lengthComparator);
-Usa el código con precaución.
-Using lambdas (Java 8 way):
+```
 
-Java
+**Using lambdas (Java 8 way)**:
+
+```java
 Arrays.sort(strings, (s1, s2) -> Integer.compare(s1.length(), s2.length()));
-Usa el código con precaución.
-Benefits of Lambda Expressions
+```
 
-Less Code: Lambdas replace bulky anonymous inner classes with concise syntax.
-Readable: Their clarity helps make code more self-explanatory, especially with higher-order functions in Streams.
-Treat Functions as Data: Passing lambdas as arguments empowers flexible patterns and techniques.
-Important Notes
+**Benefits of Lambda Expressions**
 
-Type Inference: The compiler can often determine the types of lambda parameters, so you can omit them for brevity.
-Method References: Using the :: operator, you can create short-hand lambda expressions by referencing existing methods (e.g., String::toLowerCase).
+**Less Code**: Lambdas replace bulky anonymous inner classes with concise syntax
+
+**Readable**: Their clarity helps make code more self-explanatory, especially with higher-order functions in Streams
+
+**Treat Functions as Data**: Passing lambdas as arguments empowers flexible patterns and techniques
+
+**Important Notes**
+
+**Type Inference**: The compiler can often determine the types of lambda parameters, so you can omit them for brevity
+
+**Method References**: Using the :: operator, you can create short-hand lambda expressions by referencing existing methods (e.g., String::toLowerCase)
+
+
 
 ## 9. Date Time (java.time) (JSR 310, JEP 150)
 
