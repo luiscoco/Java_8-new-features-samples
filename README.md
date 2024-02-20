@@ -871,41 +871,47 @@ Predicate<Integer> isEven = number -> number % 2 == 0;
 System.out.println(isEven.test(4));   // Output: true
 System.out.println(isEven.test(7));   // Output: false
 Usa el código con precaución.
-2. Consumer<T>
 
-Purpose: Performs an action on an object of type T, doesn't return anything.
+**Consumer<T>**: Performs an action on an object of type T, doesn't return anything
+
 Sample:
 Java
 Consumer<String> printer = text -> System.out.println(text);
 
 printer.accept("Hello, Lambda!");  // Output: Hello, Lambda!
 Usa el código con precaución.
-3. Function<T, R>
 
-Purpose: Transforms a value of type T into a value of (potentially different) type R.
-Sample:
-Java
+**Function<T, R>**: Transforms a value of type T into a value of (potentially different) type R.
+
+**Sample**:
+
+```java
 Function<String, Integer> lengthFinder = str -> str.length(); 
 
 System.out.println(lengthFinder.apply("World")); // Output: 5 
-Usa el código con precaución.
-4. Supplier<T>
+```
 
-Purpose: Generates a value of type T. Takes no arguments.
-Sample:
-Java
+**Supplier<T>**: Generates a value of type T. Takes no arguments
+
+**Sample**:
+
+```java
 Supplier<Double> randomValue = () -> Math.random();
 
 System.out.println(randomValue.get());  // Output: A random double value (e.g. 0.231231)
-Usa el código con precaución.
-Common Use Cases
+```
 
-Streams: Used extensively with Streams operations - filter takes a Predicate, forEach takes a Consumer, map takes a Function.
-Higher-order Functions: You can create methods in your own classes that accept these functional interfaces as arguments.
-Notes
+**Common Use Cases**
 
-These examples demonstrate the basic patterns. These interfaces come in handy when working with Java 8 additions like Streams and Optional.
-There are many more specialized variants of these in java.util.function (e.g., BiConsumer, DoubleFunction, etc.) if you need them.
+**Streams**: Used extensively with Streams operations - filter takes a Predicate, forEach takes a Consumer, map takes a Function
+
+**Higher-order Functions**: You can create methods in your own classes that accept these functional interfaces as arguments
+
+**Notes**
+
+These examples demonstrate the basic patterns. These interfaces come in handy when working with Java 8 additions like Streams and Optional
+
+There are many more specialized variants of these in java.util.function (e.g., BiConsumer, DoubleFunction, etc.) if you need them
 
 ## 9. Date Time (java.time) (JSR 310, JEP 150)
 
