@@ -6,7 +6,7 @@
 
 https://openjdk.org/jeps/122
 
-**What is the Permanent Generation (PermGen)?**
+### 1.1. What is the Permanent Generation (PermGen)?
 
 The Permanent Generation was a distinct section of the Java Heap (the memory where objects are stored) in older Java versions (prior to Java 8).
 
@@ -18,7 +18,7 @@ Specifically,**PermGen stored Java class metadata**:
 
 - Static class variables
 
-**The Problem: OutOfMemoryError: PermGen Space**
+### 1.2. The Problem: OutOfMemoryError: PermGen Space
 
 **Limited Size**: The PermGen had a fixed size determined at JVM startup
 
@@ -26,7 +26,7 @@ Specifically,**PermGen stored Java class metadata**:
 
 **Result**: This led to the infamous **java.lang.OutOfMemoryError**: PermGen space error, requiring JVM restarts and tuning
 
-**JEP 122: The Solution**
+### 1.3. JEP 122: The Solution
 
 **Goal**: **Remove the PermGen space**, improving memory management and removing a source of difficult-to-tune runtime errors
 
@@ -60,7 +60,7 @@ Introduced as part of Java 8
 
 https://jcp.org/en/jsr/detail?id=335
 
-**What are Lambda Expressions?**
+### 2.1. What are Lambda Expressions?
 
 **Concise Anonymous Functions**: Lambdas provide a compact syntax for implementing simple functions directly where they are needed
 
@@ -88,7 +88,7 @@ A lambda expression has three parts:
 
 () -> { System.out.println("Hello"); return 42; } 
 
-**Why Use Lambda Expressions**
+### 2.2. Why Use Lambda Expressions
 
 **Readability**: They reduce verbosity in the code. Compare creating a named Runnable for a thread vs. a lambda:
 
@@ -107,9 +107,9 @@ new Thread(() -> System.out.println("In a thread")).start();
 
 Passing Code as Data: Lambdas work effortlessly with methods of functional interfaces (interfaces with a single abstract method). This enables elegant techniques like filtering collections
 
-**Streamlined APIs**: Java 8's Streams API  heavily leans on lambdas for operations like filtering, mapping, and sorting collections
+### 2.3. Streamlined APIs
 
-**Example with Streams**
+Java 8's Streams API  heavily leans on lambdas for operations like filtering, mapping, and sorting collections
 
 ```java
 import java.util.Arrays;
@@ -135,7 +135,7 @@ Lambda expressions, along with  other new features like the Streams API, enhance
 
 Let's explore some **more advanced** uses of **Java Lambda Expressions**
 
-### 2.1. Custom Functional Interfaces & Comparators
+### 2.4. Custom Functional Interfaces & Comparators
 
 **Beyond Predefined**: While lambda expressions work seamlessly with predefined functional interfaces (Predicate, Function, Consumer, etc.), you can create your own
 
@@ -158,7 +158,7 @@ public class LambdaAdvanced {
 }
 ```
 
-### 2.2. Method References
+### 2.5. Method References
 
 **Shorthand for Existing Methods**: When a lambda simply calls an existing method, you can replace it with a method reference for further brevity
 
@@ -182,7 +182,7 @@ ClassName::staticMethod
 ClassName::new (constructor reference)
 ```
 
-### 2.3. Lambdas Within Collections
+### 2.5. Lambdas Within Collections
 
 **Sorting**: Comparator.comparing gives a nice way to use lambdas within sort methods of collections:
 
@@ -195,7 +195,7 @@ people.sort(Comparator.comparing(Person::getAge).reversed());  // Sort by age de
 
 **Advanced Stream Usage**: Combining operations like filter, map, and reduce with lambdas leads to powerful data manipulation capabilities within Streams
 
-### 2.4. Event Handling (Swing/JavaFX)
+### 2.6. Event Handling (Swing/JavaFX)
 
 **Callback Handlers**: Lambda expressions eliminate the tedium of creating separate classes to handle GUI events:
 
@@ -206,7 +206,7 @@ JButton button = new JButton("Click Me");
 button.addActionListener(e -> System.out.println("Button clicked!"));
 ```
 
-### 2.5. Higher-Order Functions
+### 2.7. Higher-Order Functions
 
 Functions as Arguments/Return Values: You can write methods that accept lambda expressions as parameters or return them, enabling the creation of flexible, reusable algorithms
 
