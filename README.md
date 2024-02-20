@@ -717,7 +717,7 @@ public class StreamExample {
 
 **collect**: Collects elements into a container like a list
 
-Let's consider a **more advance sample** to illustrate the power of Java Streams:
+**Advance Sample** to illustrate the power of Java Streams:
 
 **Scenario: Text Analysis**
 
@@ -881,7 +881,7 @@ Consumer<String> printer = text -> System.out.println(text);
 printer.accept("Hello, Lambda!");  // Output: Hello, Lambda!
 Usa el código con precaución.
 
-**Function<T, R>**: Transforms a value of type T into a value of (potentially different) type R.
+**Function<T, R>**: Transforms a value of type T into a value of (potentially different) type R
 
 **Sample**:
 
