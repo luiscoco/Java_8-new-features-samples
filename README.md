@@ -983,3 +983,76 @@ public class DateTimeExample {
 
 **Migration**: Adapters exist to convert between the old API and java.time if interacting with legacy code is necessary
 
+Let's explore some more advanced samples of Java's Date Time API:
+
+1. Date/Time Adjustments
+
+Java
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
+
+LocalDate today = LocalDate.now();
+
+// Get the first day of the next month
+LocalDate firstOfNextMonth = today.with(TemporalAdjusters.firstDayOfNextMonth());
+
+// Calculate date three weeks from now
+LocalDate threeWeeksLater = today.plus(3, ChronoUnit.WEEKS);
+
+// Subtract a month and two days 
+LocalDate customDate = today.minusMonths(1).minusDays(2);
+Usa el código con precaución.
+2. Working with Timezones
+
+Java
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+
+// Current time in London
+ZonedDateTime londonTime = ZonedDateTime.now(ZoneId.of("Europe/London"));
+
+// Same instant in Los Angeles
+ZonedDateTime losAngelesTime = londonTime.withZoneSameInstant(ZoneId.of("America/Los_Angeles"));
+
+// Formatting with timezone information
+System.out.println("London: " + londonTime.format(DateTimeFormatter.ISO_ZONED_DATE_TIME));
+Usa el código con precaución.
+3. Calculations with Periods and Durations
+
+Java
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.Duration;
+import java.time.LocalTime;
+
+// Time between two dates
+LocalDate startDate = LocalDate.of(2023, 10, 15);
+LocalDate endDate = LocalDate.now(); 
+Period period = Period.between(startDate, endDate);
+System.out.println("Days passed: " + period.getDays()); 
+
+// Duration between two times
+LocalTime startTime = LocalTime.of(11, 30);
+LocalTime endTime = LocalTime.now();
+Duration duration = Duration.between(startTime, endTime);
+System.out.println("Duration in minutes: " + duration.toMinutes()); 
+Usa el código con precaución.
+4. Custom Formatting
+
+Java
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
+ZonedDateTime dateTime = ZonedDateTime.now();
+
+// Custom pattern
+DateTimeFormatter customFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a z");
+System.out.println(dateTime.format(customFormatter)); // Example: Feb 21 2024, 02:14 PM CET
+Usa el código con precaución.
+Notes
+
+TemporalAdjusters: The TemporalAdjusters class offers handy methods for common adjustments like finding the first/last day of the month, etc.
+ChronoUnit: Use ChronoUnit for measuring periods in various units (days, months, years, etc.).
+Formatting Flexibility: You have precise control over the output format of dates and times.
