@@ -983,7 +983,7 @@ public class DateTimeExample {
 
 **Migration**: Adapters exist to convert between the old API and java.time if interacting with legacy code is necessary
 
-**ADVANCE SAMPLE** of Java's Date Time API:
+**ADVANCE SAMPLES** of Java's Date Time API:
 
 **Date/Time Adjustments**
 
