@@ -916,3 +916,70 @@ There are many more specialized variants of these in java.util.function (e.g., B
 ## 9. Date Time (java.time) (JSR 310, JEP 150)
 
 https://jcp.org/en/jsr/detail?id=310, https://openjdk.org/jeps/150
+
+**Why a New Date and Time API?**
+
+The classic java.util.Date and java.util.Calendar classes in Java had several shortcomings:
+
+**Mutability**: These classes were mutable, making them prone to errors in multi-threaded scenarios
+
+**Timezone Handling**: Timezone support was complex and confusing
+
+**Inflexible Design**: Certain date-time concepts were hard to model, leading to awkward workarounds
+
+**Key Features of Java.time**
+
+**Immutability**:  Classes in java.time are immutable. Once created, they cannot be changed, promoting thread safety and reducing risks of unexpected side effects
+
+**Clear API**:  The API is well-structured with separate classes representing concepts like "date", "time", "instant", "timezone", and "duration"
+
+**Timezone Support**: Dedicated classes like ZoneId and ZonedDateTime provide more intuitive handling of timezones
+
+**Formatting and Parsing**:  Simplified and flexible parsing and formatting of date and time patterns
+
+**Calculations**:  Easy to perform date and time calculations such as adding/subtracting durations or finding the period between dates.
+
+**Core Classes**
+
+**LocalDate**: Represents a date without time or timezone (year, month, day)
+
+**LocalTime**: Represents a time without date or timezone (hour, minute, second)
+
+**LocalDateTime**: A combination of LocalDate and LocalTime (no timezone)
+
+**Instant**: An instantaneous point on the universal timeline (with nanosecond precision)
+
+**ZonedDateTime**: Date and time combined with a specific timezone
+
+**Period**: A duration of time measured in years, months, days
+
+**Duration**: A duration of time measued in seconds and nanoseconds
+
+**Example**
+
+```java
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+
+public class DateTimeExample {
+    public static void main(String[] args) {
+        LocalDate today = LocalDate.now();
+        LocalTime now = LocalTime.now();
+        LocalDateTime currentDateTime = LocalDateTime.now();   
+
+        ZonedDateTime tokyoDateTime = ZonedDateTime.now(ZoneId.of("Asia/Tokyo"));
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        System.out.println(currentDateTime.format(formatter));  
+    }
+}
+```
+
+**Key Points**
+
+**No More Date and Calendar**: Best practice suggests using the java.time classes over the legacy ones when working with new code
+
+**Migration**: Adapters exist to convert between the old API and java.time if interacting with legacy code is necessary
+
