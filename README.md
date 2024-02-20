@@ -859,18 +859,18 @@ Arrays.sort(strings, (s1, s2) -> Integer.compare(s1.length(), s2.length()));
 
 **Method References**: Using the :: operator, you can create short-hand lambda expressions by referencing existing methods (e.g., String::toLowerCase)
 
-Let's look at simple examples for Predicate, Consumer, Function, and Supplier from Java 8's Lambda APIs:
+**SAMPLES about Predicate, Consumer, Function, and Supplier from Java 8's Lambda APIs**
 
-1. Predicate<T>
+**Predicate<T>**: Tests a condition on a value of type T, returning true or false
 
-Purpose: Tests a condition on a value of type T, returning true or false.
-Sample:
-Java
+**Sample**:
+
+```java
 Predicate<Integer> isEven = number -> number % 2 == 0;
 
 System.out.println(isEven.test(4));   // Output: true
 System.out.println(isEven.test(7));   // Output: false
-Usa el código con precaución.
+```
 
 **Consumer<T>**: Performs an action on an object of type T, doesn't return anything
 
