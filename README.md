@@ -859,7 +859,53 @@ Arrays.sort(strings, (s1, s2) -> Integer.compare(s1.length(), s2.length()));
 
 **Method References**: Using the :: operator, you can create short-hand lambda expressions by referencing existing methods (e.g., String::toLowerCase)
 
+Let's look at simple examples for Predicate, Consumer, Function, and Supplier from Java 8's Lambda APIs:
 
+1. Predicate<T>
+
+Purpose: Tests a condition on a value of type T, returning true or false.
+Sample:
+Java
+Predicate<Integer> isEven = number -> number % 2 == 0;
+
+System.out.println(isEven.test(4));   // Output: true
+System.out.println(isEven.test(7));   // Output: false
+Usa el código con precaución.
+2. Consumer<T>
+
+Purpose: Performs an action on an object of type T, doesn't return anything.
+Sample:
+Java
+Consumer<String> printer = text -> System.out.println(text);
+
+printer.accept("Hello, Lambda!");  // Output: Hello, Lambda!
+Usa el código con precaución.
+3. Function<T, R>
+
+Purpose: Transforms a value of type T into a value of (potentially different) type R.
+Sample:
+Java
+Function<String, Integer> lengthFinder = str -> str.length(); 
+
+System.out.println(lengthFinder.apply("World")); // Output: 5 
+Usa el código con precaución.
+4. Supplier<T>
+
+Purpose: Generates a value of type T. Takes no arguments.
+Sample:
+Java
+Supplier<Double> randomValue = () -> Math.random();
+
+System.out.println(randomValue.get());  // Output: A random double value (e.g. 0.231231)
+Usa el código con precaución.
+Common Use Cases
+
+Streams: Used extensively with Streams operations - filter takes a Predicate, forEach takes a Consumer, map takes a Function.
+Higher-order Functions: You can create methods in your own classes that accept these functional interfaces as arguments.
+Notes
+
+These examples demonstrate the basic patterns. These interfaces come in handy when working with Java 8 additions like Streams and Optional.
+There are many more specialized variants of these in java.util.function (e.g., BiConsumer, DoubleFunction, etc.) if you need them.
 
 ## 9. Date Time (java.time) (JSR 310, JEP 150)
 
