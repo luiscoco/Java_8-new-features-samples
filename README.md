@@ -655,26 +655,31 @@ Repeatable annotations offer a seemingly small, but crucial quality-of-life impr
 
 https://openjdk.org/jeps/107
 
-What are Streams?
+**What are Streams?**
 
-Sequences of Elements: Streams in Java 8 are sequences of elements taken from a data source (like a collection, array, or I/O resource). You don't directly store data in a stream.
-Focus on 'What' Not 'How': Streams emphasize what you want to do with the data rather than the exact steps involved in manipulating the data. This leads to a declarative style of programming.
-Internal Iteration: Unlike traditional loops where you explicitly iterate over data, streams handle the iteration internally for you.
-Why Use Streams?
+**Sequences of Elements**: Streams in Java 8 are sequences of elements taken from a data source (like a collection, array, or I/O resource). You don't directly store data in a stream
 
-Concise and Readable Code: Streams enable creating elegant pipelines of operations, making your code less verbose and easier to understand.
-Filtering, Mapping, and More: Streams provide higher-order functions like filter, map, sorted, and others that transform data without complex loops.
-Potential for Parallelism: The parallelStream() method effortlessly unlocks parallel processing to take advantage of multi-core systems.
-Laziness: Streams generally process data lazily, meaning computations are only executed as needed, potentially improving performance.
-JEP 107
+**Focus on 'What' Not 'How'**: Streams emphasize what you want to do with the data rather than the exact steps involved in manipulating the data. This leads to a declarative style of programming
+
+**Internal Iteration**: Unlike traditional loops where you explicitly iterate over data, streams handle the iteration internally for you
+
+**Why Use Streams?**
+
+**Concise and Readable Code**: Streams enable creating elegant pipelines of operations, making your code less verbose and easier to understand
+
+**Filtering, Mapping, and More**: Streams provide higher-order functions like filter, map, sorted, and others that transform data without complex loops
+
+**Potential for Parallelism**: The parallelStream() method effortlessly unlocks parallel processing to take advantage of multi-core systems
+
+**Laziness**: Streams generally process data lazily, meaning computations are only executed as needed, potentially improving performance
 
 Java Enhancement Proposal 107 officially brought the idea of bulk data operations (inspired by concepts like filter/map/reduce) into the Java Collections Framework,  leading to the introduction of Streams.
 
-Basic Example
+**Basic Example**
 
 Suppose you have a list of numbers and want to double the even numbers and then find their sum:
 
-Java
+```java
 import java.util.Arrays;
 import java.util.List;
 
@@ -690,18 +695,99 @@ public class StreamExample {
         System.out.println(result);  // Output: 12
     }
 }
-Usa el código con precaución.
-Key Components
+```
+
+**Key Components**
 
 Source: Where the stream gets its data (e.g., numbers.stream())
+
 Intermediate Operations: Transformations on the data:
-filter: Keeps elements matching a condition.
-map: Transforms each element into something else.
-sorted: Sorts the stream.
+
+filter: Keeps elements matching a condition
+
+map: Transforms each element into something else
+
+sorted: Sorts the stream
+
 Terminal Operation: Triggers the stream processing by producing a result:
+
 reduce: Combines elements of the stream (example: sum, maximum, etc.)
-forEach: Performs an action on each element.
-collect: Collects elements into a container like a list.
+
+forEach: Performs an action on each element
+
+collect: Collects elements into a container like a list
+
+Let's consider a **more advance sample** to illustrate the power of Java Streams:
+
+**Scenario: Text Analysis**
+
+Suppose you have a file containing customer reviews on a product. You want to perform the following:
+
+Calculate the frequency of each word in the reviews.
+
+Find the most frequently used words, excluding common "stop words."
+
+Calculate the average sentiment score of reviews (assume you have a helper function calculateSentiment(String review) that returns a score between -1.0 and 1.0)
+
+```java
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+public class TextAnalysis {
+    private static final List<String> STOP_WORDS = Arrays.asList("a", "the", "and", "of", "is", "to", "in");
+
+    public static void main(String[] args) throws IOException {
+        String filePath = "reviews.txt";
+
+        Files.lines(Paths.get(filePath))
+             .flatMap(line -> Arrays.stream(line.toLowerCase().split("\\s+"))) // Tokenize into words
+             .filter(word -> !STOP_WORDS.contains(word)) // Remove stop words
+             .collect(Collectors.groupingBy(Function.identity(), Collectors.counting())) // Word frequencies
+             .entrySet().stream()
+             .sorted(Map.Entry.<String, Long>comparingByValue().reversed()) // Sort by frequency (descending)
+             .limit(10)
+             .forEach(entry -> System.out.println(entry.getKey() + ": " + entry.getValue())); 
+
+        // Average sentiment
+        double avgSentiment = Files.lines(Paths.get(filePath))
+                                   .mapToDouble(TextAnalysis::calculateSentiment)
+                                   .average()
+                                   .getAsDouble();
+        System.out.println("Average Sentiment Score: " + avgSentiment);
+    }
+
+    private static double calculateSentiment(String review) {
+        // ... Logic to analyze sentiment (for demonstration)
+        return Math.random(); // Replace with actual sentiment analysis
+    }
+}
+```
+
+Explanation
+
+Flattening and Tokenizing: flatMap transforms the stream of lines into a stream of individual words.
+
+Filtering Stop Words: filter eliminates common words.
+
+Word Counting: collect with groupingBy and counting creates a map with word frequencies.
+
+Sorting and Top 10: The resulting stream of map entries is sorted in reverse order based on word count, limited to the top 10, and finally printed.
+
+Sentiment Analysis: An average sentiment score across all reviews is calculated.
+
+Key Points
+
+Stream Chaining: Multiple stream operations link together, expressing the analysis compactly
+
+Collectors: groupingBy and counting are handy collectors for aggregation
+
+Custom Functions: The calculateSentiment function (even though stubbed out here) illustrates integration of external logic
 
 
 ## 8. Lambda APIs (java.util.function) (JEP 109)
